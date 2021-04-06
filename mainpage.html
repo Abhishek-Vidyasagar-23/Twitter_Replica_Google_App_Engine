@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Twitter main Page</title>
+ <link rel="stylesheet" href="/css/w3.css">
+  <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato:100italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<style>
+
+    a{
+      text-decoration:none;
+
+    }
+    .main{
+         width:65%;
+         margin:0 auto;
+        }
+     .edit{
+     cursor:pointer;
+     }
+.submit {
+ background-color: white;
+  border: none;
+  color: black;
+
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body class="w3-light-grey nav">
+<div class="w3-sidebar w3-bar-block w3-border w3-purple nav w3-small bar" style="height:20em; ">
+      <div class="w3-bar-item w3-text-white"><a href="/">Home</a></div>
+      <div class="w3-bar-item w3-text-white"><a href="/ProfilePage">Profile Page</a></div>
+         <form action="/" method="post">
+          <input type="text" name='search' class="w3-input w3-bar-item" style="height:2.8em; width:90%; margin:0 auto;" />
+
+           <input type="submit" name="button" value='Search' class="w3-button w3- w3-bar-item w3-orange" style=" width:90%; margin:0 auto;" />
+             </form>
+
+        <div class="w3-bar-item w3-text-white w3-right">{{userHeader.username}}</div>
+    <div class="w3-bar-item w3-text-white w3-right"><a href="{{ logout_url }}" >Logout</a></div>
+
+
+
+</div>
+
+     {% block content %}
+ <div class="w3-container main" style="background-color:white!important; width:65%; margin:0 auto;">
+
+
+    <div class="w3-row-padding w3-container back-color " style="padding-bottom:9px; padding-left:4em; padding-top:3em;">
+        <div class="w3-col " style="width:4em"><img src="img/twitter.png" width="100%"/></div>
+        <div class="w3-col w3-light-grey nav" style="width:80%; height:3em" onclick="document.getElementById('id01').style.display='block'"><p style="padding-left: 2em;">What's happening?....</p></div>
+        <div class="w3-col" style="width:4em; " onclick="document.getElementById('id01').style.display='block'"><button class="w3-purple w3-button" style="padding-bottom:1em;">Send</button></div>
+    </div>
+     <div  style="width:100%; padding:0.5em;margin-top:1px;">
+
+    {% for i in query %}
+      {% for k in i.userTweets%}
+    <div class="w3-container w3-row-padding " style="margin-bottom:1px; padding-top:10px; ">
+
+        <div class="w3-col" style="width:3em;padding-right:4em; padding-top:6px; " >
+      <img src="img/wutang.jpg" alt="Picture" class="w3-left w3-margin-right" style="width:40px">
+            </div>
+        <div class="w3-rest" style="width:90%; padding-bottom:1em; ">
+            <span class="w3-medium"><b><a href="/ProfilePage?username={{i.username}}">{{i.username}}</a></b></span></br>
+        <span class="nav w3-small w3-text-grey">{{k}}</span>
+
+        </div>
+
+    </div>
+
+            {% endfor %}
+         {% endfor %}
+
+
+  </div>
+
+     <div id="id01" class="w3-modal">
+    <div class="w3-modal-content"style="width:30%">
+      <div class="w3-container w3-purple" style="height:3em;">
+        <span onclick="document.getElementById('id01').style.display='none'"
+        class="w3-button w3-display-topright" style="padding-bottom:1em;">&times;</span>
+
+      </div>
+      <div class="w3-container" style="padding-bottom:2em; padding-top:1em;" >
+         <form action="/" method="post">
+
+             <textarea id="myTextarea" placeholder="What's Happening" class="nav w3-border-grey w3-small" style="width:100%; margin-top:3px; height:8em; border:none;" name="tweet" maxlength="280"></textarea>
+
+                   <input type="submit" name="button" value="Tweet" class="button w3-button w3-text-white w3-block w3-purple"  />
+
+    </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+
+
+
+</body>
+</html>

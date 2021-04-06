@@ -1,0 +1,170 @@
+
+{% extends "mainpage.html" %}
+{% block content %}
+<div class="main w3-row" style="padding-bottom:8em">
+    <div class="w3-half" >
+
+        <div class="w3-display-container " style="height:15em!important; width:100%;">
+            <img src="img/{{imgCover}}" style="width:100%; "  />
+            <div style="width:7.5em; " class="w3-display-bottomleft ">
+
+                <img src="img/{{img}}" style="width:100%;  margin-left:2em; border:solid white 3px!important;" class="w3-circle w3-border"/>
+
+            </div>
+
+
+        </div>
+         <div style="height:5em; padding-top:6em; background-color:white; width:100%; margin-top:-5em; " class=" w3-container" class="w3-center">
+
+
+         <span class="nav w3-small" style="">Country: {{user.location}}</span>
+         <span class="nav w3-small" style="padding-left:1em;"> Birthday: {{user.userBirthDate}}</span>
+         <span class="nav w3-small " style="padding-left:1em; "> Followers: {{follower}}</span>
+         <span class="nav w3-small " style="padding-left:1em; "> Following: {{following}}</span>
+          <span class=" w3-right" >
+                {% if test > 0 %}
+                <a href='/ProfilePage?userFollowing={{user.username}}' class="w3-text-purple w3-small " style="padding-left:2em; padding-right:2em" >{{followStatues}}</a>
+                {% endif %}
+                {% if test == 0 %}
+                <span class=" edit  w3-small w3-text-purple" onclick="document.getElementById('id01').style.display='block'">{{followStatues}}</span>
+                {% endif %}
+
+            </span>
+        </div>
+        {% if range == 0 or range > 0 %}
+         <div class="w3-container  w3-padding-32"style="width:100%!important;background-color:white;">
+
+
+
+            <span class="nav w3-medium"><b>{{userTitle}}</b></span>
+            <a href="/ProfilePage?unfollowing={{user.username}}"><span class="w3-dropdown-click w3-nav w3-small w3-right w3-text-blue-grey " style="padding-right:2em;">{{unfollowstatues}} </span></a>
+            </br>
+            <span class="w3-small nav w3-text-grey">{{user.userbio}}</span></br>
+
+         </div>
+        {% endif %}
+
+    </div>
+
+
+
+    <div class="w3-half" style="margin-top:2px; background-color:white; ">
+
+        {% if range > 0 %}
+
+
+
+
+
+                {% for i in range %}
+
+                    <div style="padding-top:2em; background-color:white; padding-left:2em; padding-bottom:1em;">
+
+
+                          <div class="w3-col" style="width:3em;padding-right:4em; padding-top:6px;  " >
+                         <img src="img/{{img}}" alt="Avatar" class="w3-left w3-margin-right" style="width:40px">
+                     </div>
+
+                         <span class="nav w3-small w3-text-grey">{{userTweets.userTweets[i]}}</span>
+
+                     <div class="w3-rest" style="width:80%; ">
+
+                                    <form method="post" action="/ProfilePage" class='w3-third'>
+                                        <input type="hidden" name="hidden" value="{{i}}"/>
+                                        <input type="submit"  class="submit" value="Edit" name="button" style=" font-size: 10px; color:purple;" />
+                                        </form>
+                                    <form method="post" action="/ProfilePage" class='w3-third'>
+                                        <input type="hidden" name="deleteTweet" value="{{i}}"/>
+                                        <input type="submit" class="submit" value="Delete" name="button" style=" font-size: 10px; color:purple;"/>
+
+                                    </form>
+
+                         </div>
+
+                     </div>
+
+
+
+                        {% endfor %}
+
+
+
+
+
+
+        {% endif %}
+         </div>
+     </div>
+
+    <div id="updateStatues" class="w3-modal " style='display:{{showEditTweet}}; '>
+            <div class="w3-modal-content" style="width:30%;padding-bottom:2em;">
+                  <header class="w3-container w3-purple">
+                    <span onclick="document.getElementById('updateStatues').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                    <p class="nav">Edit Tweet</p>
+                  </header>
+                  <div class="w3-container">
+                    <form action="/ProfilePage" method="post">
+
+                    <input type="hidden" name="tweetnumber" value="{{tweetnumber}}" />
+                    <textarea id="userTweetEdit" class="nav  w3-small" style="width:100%; margin-top:3px; resize:none; height:10em; margin-bottom:2px; border:none;" name="tweetEdit">{{tweetEdit}}</textarea>
+
+                   <input type="submit" name="button" value="Update Tweet" class="button w3-button w3-text-white w3-block w3-purple"  />
+
+                    </form>
+                  </div>
+
+
+            </div>
+        </div>
+
+
+
+
+    <div id="id01" class="w3-modal">
+    <div class="w3-modal-content"style="width:30%">
+      <header class="w3-container w3-purple">
+        <span onclick="document.getElementById('id01').style.display='none'"
+        class="w3-button w3-display-topright">&times;</span>
+        <p class="nav">Edit Profile</p>
+      </header>
+      <div class="w3-container" style="padding-bottom:2em; padding-top:1em;" >
+          <div style="margin-bottom:2em;" class="w3-half">
+          <form action="{{upload_url}}" method="post" enctype="multipart/form-data" >
+             <input type="file" name="cover" /><br/>
+            <input type="submit" value="UPLOAD COVER" name="action" class="button w3-button w3-block w3-white " style="color:purple!important; font-size: 10px;"/>
+            </form>
+              </div>
+
+
+          <div class="w3-container w3-half" style="padding-bottom:2em;" >
+          <div style="margin-bottom:2em;">
+          <form action="{{upload_url}}" method="post" enctype="multipart/form-data" class="w3-half">
+           <input type="file" name="file" /><br/>
+            <input type="submit" value="UPLOAD PROFILE PICTURE" name='action' class="button w3-button  w3-block w3-white" style="color:purple!important; font-size: 10px; width:100%!important;"/>
+            </form>
+              </div>
+              </div>
+      </hr>
+         <form action="/ProfilePage" method="post">
+
+                    <input type="text" name="username" placeholder="USERNAME" value="{{ user.username}}" class=" w3-input w3-border nav w3-small " readonly/>
+         <input type="text" name="location" placeholder="Location" value="{{user.location}}" class=" w3-input w3-border nav w3-small"/>
+        <input type="date" name="birthday" placeholder="birthday date" value="{{user.userBirthDate}}" class=" w3-input w3-border nav w3-small"/>
+             <textarea id="userbio" class="nav w3-border-grey w3-small" style="width:100%; margin-top:3px; resize:none; height:5em; " name="bio">{{user.userbio}}</textarea>
+
+                   <input type="submit" name="button" value="UPDATE" class="button w3-button w3-text-white w3-block w3-purple"  />
+
+    </form>
+
+
+    </div>
+  </div>
+
+     </div>
+
+
+
+
+
+{% endblock %}

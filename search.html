@@ -1,0 +1,46 @@
+{% extends "mainpage.html" %}
+{% block content %}
+
+<div class="main" style="background-color:white;">
+    <div style="width:100%; padding:0.5em;margin-top:1px; ">
+
+
+    <div class="w3-container w3-row-padding" style="margin-bottom:1px; padding-top:10px; ">
+
+        <div class="w3-col" style="width:3em;padding-right:4em; padding-top:6px; " >
+      <img src="img/wutang.jpg" alt="Avatar" class="w3-left  w3-margin-right" style="width:40px">
+            </div>
+        <div class="w3-rest" style="width:90%; ">
+            <span class="nav w3-small"><b><a href="/ProfilePage?username={{queryUser.username}}">{{queryUser.username}}</a></b></span><span class="w3-right"><a href="/ProfilePage?userFollowing={{queryUser.username}}" class="w3-button nav w3-purple w3-small">{{followStatues}}</a></span></br>
+        <span class="nav w3-small w3-text-grey">{{queryUser.userbio}}</span>
+
+        </div>
+    </div>
+
+    </div>
+
+
+     <div class="back-color" style="width:100%; padding:0.5em;margin-top:10px;">
+      <div></div>
+    {% for i in queryTweet %}
+
+    <div class="w3-container w3-row-padding " style="margin-bottom:1px; padding-top:10px; ">
+
+        <div class="w3-col" style="width:3em;padding-right:4em; padding-top:6px; " >
+      <img src="img/kobe (1).jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:40px">
+            </div>
+        <div class="w3-rest" style="width:90%; padding-bottom:1em;">
+            <span class="nav w3-small w3-text-grey">{{i}}</span></br>
+        <span class="nav w3-small w3-text-grey">{{k}}</span>
+
+        </div>
+
+    </div>
+
+         {% endfor %}
+
+
+  </div>
+
+</div>
+{% endblock %}
