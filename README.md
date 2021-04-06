@@ -4,4 +4,3 @@ own profile page with Profile picture & Background Image with bio description.
 Model
 SDK: Google App Engine
 Languages: Python, HTML,CSS, Bootstrap.
-Databases: No-sql Databases
